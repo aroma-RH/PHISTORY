@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>POINTAGE HISTORY</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header style="display: none;">
+    <div class="container header-content">
+      <div class="logo">
+        <span class="icon">⏰</span>
+        <h1>Work Hours Tracker</h1>
+      </div>
+      <button id="themeToggle" aria-label="Toggle theme" style="display: none;">🌙</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div id="filters" class="card">
+      <h2>Filter Data</h2>
+      <div class="filter-grid">
+        <div class="filter-item">
+          <label for="startDate">Date de début</label>
+          <input type="date" id="startDate">
+        </div>
+        <div class="filter-item">
+          <label for="endDate">Date de fin</label>
+          <input type="date" id="endDate">
+        </div>
+        <div class="filter-item">
+          <label for="teamFilter">équipes</label>
+          <select id="teamFilter">
+            <option value="">Toutes les équipes</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label for="fincaFilter">Finca</label>
+          <select id="fincaFilter">
+            <option value="">Toutes les Finca</option>
+          </select>
+        </div>
+        <div class="filter-item">
+          <label for="searchInput">Recherche</label>
+          <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" placeholder="Search employee or notes...">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card blue">
+        <div class="stat-icon">👥</div>
+        <div class="stat-content">
+          <p class="stat-label">Nombre total d'entrées</p>
+          <p id="totalEntries" class="stat-value">0</p>
+        </div>
+      </div>
+      <div class="stat-card green">
+        <div class="stat-icon">⏱️</div>
+        <div class="stat-content">
+          <p class="stat-label">Nombre total d'heures</p>
+          <p id="totalHours" class="stat-value">0</p>
+        </div>
+      </div>
+      <div class="stat-card purple">
+        <div class="stat-icon">📈</div>
+        <div class="stat-content">
+          <p class="stat-label">Heures moyennes</p>
+          <p id="avgHours" class="stat-value">0</p>
+        </div>
+      </div>
+      <div class="stat-card amber" style="display: none;">
+        <div class="stat-icon">⚠️</div>
+        <div class="stat-content">
+          <p class="stat-label">Overtime</p>
+          <p id="overtimePercent" class="stat-value">0%</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="actions card">
+      <p class="entries-info">Affichage <span id="totalEntriesDisplay">0</span> entrées</p>
+      <div class="action-buttons">
+        <button id="exportCSV" class="btn primary">
+          ⬇️ Exporter
+        </button>
+        <button id="printView" class="btn secondary">
+          🖨️ Imprimer
+        </button>
+      </div>
+    </div>
+
+    <div id="loadingSpinner" class="loading-spinner hidden">
+      <div class="spinner"></div>
+      <p>Chargement des données...</p>
+    </div>
+
+    <div id="errorMessage" class="error-message hidden">
+      <span class="error-icon">⚠️</span>
+      <div class="error-content">
+        <h3>Erreur lors du chargement des données</h3>
+        <p id="errorText"></p>
+        <button id="retryButton" class="btn error">
+          🔄 Retry
+        </button>
+      </div>
+    </div>
+
+    <div class="table-container card">
+      <table id="workHoursTable">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>NOMBRE</th>
+            <th>EQUIPE</th>
+            <th>RHHH</th>
+            <th>DATE</th>
+            <th>FINCA</th>
+            <th>FACE</th>
+            <th>S CONTRAT</th>
+            <th>CONTRAT</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div class="pagination">
+      <button id="prevPage" class="btn" disabled>Précédente</button>
+      <div id="pageNumbers" class="page-numbers"></div>
+      <button id="nextPage" class="btn" disabled>Suivante</button>
+    </div>
+  </main>
+
+  <footer style="display: none;">
+    <div class="container">
+      <p>© <span id="currentYear"></span> Work Hours Tracker</p>
+      <p>All rights reserved</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
