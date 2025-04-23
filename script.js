@@ -1,6 +1,6 @@
 // Constants
 const API_URL = 'https://script.google.com/macros/s/AKfycbw_q_-bDg0txxkaYimhzQlXdXVIW3Tea1bedWe0BQ1xoQxtmaMQp6jG4Usut-swWtpU_g/exec';
-const ROWS_PER_PAGE = 30;
+const ROWS_PER_PAGE = 25;
 
 // State
 let allData = [];
@@ -159,29 +159,26 @@ function handleFiltersChange() {
     endDate: elements.endDate.value ? new Date(elements.endDate.value) : null,
     team: elements.teamFilter.value,
     finca: elements.fincaFilter.value,
-    searchTerm: elements.searchInput.value.toLowerCase()
+    searchTerm: elements.searchInput.value
   };
   
   filteredData = allData.filter(entry => {
-    if (filters.startDate && entry.date < filters.startDate) return false;
-    if (filters.endDate && entry.date > filters.endDate) return false;
-    if (filters.team && entry.team !== filters.team) return false;
-    if (filters.finca && entry.finca !== filters.finca) return false;
-
-    
     if (filters.searchTerm) {
-      // Search in multiple fields
-      return (
-        entry.employee.toLowerCase().includes(filters.searchTerm) ||
-        (entry.team && entry.team.toLowerCase().includes(filters.searchTerm)) ||
-
-        (entry.finca && entry.finca.toLowerCase().includes(filters.searchTerm)) ||
-        (entry.face && entry.face.toLowerCase().includes(filters.searchTerm)) ||
-        (entry.status && entry.status.toLowerCase().includes(filters.searchTerm)) ||
-        (entry.company && entry.company.toLowerCase().includes(filters.searchTerm))
-      );
+      const term = filters.searchTerm.toLowerCase();
+      // فلترة على اسم العامل أو رقم العامل (ID)
+      const match =
+        (entry.employee && typeof entry.employee === 'string' && entry.employee.toLowerCase().includes(term)) ||
+        (entry.id && typeof entry.id === 'string' && entry.id.toLowerCase().includes(term));
+      
+      if (!match) return false;
     }
     
+    // باقي الفلاتر (التاريخ، الفريق، الضيعة)
+    if (filters.startDate && new Date(entry.date) < filters.startDate) return false;
+    if (filters.endDate && new Date(entry.date) > filters.endDate) return false;
+    if (filters.team && entry.team !== filters.team) return false;
+    if (filters.finca && entry.finca !== filters.finca) return false;
+  
     return true;
   });
   
@@ -189,6 +186,7 @@ function handleFiltersChange() {
   updateTable();
   updateSummaryStats();
 }
+
 
 // UI Updates
 function updateFilterOptions() {
