@@ -45,7 +45,7 @@
           <label for="searchInput">Recherche</label>
           <div class="search-wrapper">
             <span class="search-icon">🔍</span>
-            <input type="text" id="searchInput" placeholder="Search employee or notes...">
+            <input type="text" id="searchInput" placeholder="Rechercher un employé ou des notes...">
           </div>
         </div>
       </div>
@@ -55,18 +55,18 @@
       <div class="stat-card blue">
         <div class="stat-icon">👥</div>
         <div class="stat-content">
-          <p class="stat-label">Nombre total d'entrées</p>
+          <p class="stat-label">total d'entrées</p>
           <p id="totalEntries" class="stat-value">0</p>
         </div>
       </div>
       <div class="stat-card green">
         <div class="stat-icon">⏱️</div>
         <div class="stat-content">
-          <p class="stat-label">Nombre total d'heures</p>
+          <p class="stat-label">total d'heures</p>
           <p id="totalHours" class="stat-value">0</p>
         </div>
       </div>
-      <div class="stat-card purple">
+      <div class="stat-card purple" style="display: none;">
         <div class="stat-icon">📈</div>
         <div class="stat-content">
           <p class="stat-label">Heures moyennes</p>
@@ -88,7 +88,7 @@
         <button id="exportCSV" class="btn primary">
           ⬇️ Exporter
         </button>
-        <button id="printView" class="btn secondary">
+        <button id="printView" class="btn secondary" style="display: none;">
           🖨️ Imprimer
         </button>
       </div>
