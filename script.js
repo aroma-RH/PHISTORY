@@ -137,6 +137,32 @@ function processData(rawData) {
     company: item[8] || ''
   }));
 }
+// Sélectionner les éléments
+const searchInput = document.getElementById('searchInput');
+const teamFilter = document.getElementById('teamFilter');
+const fincaFilter = document.getElementById('fincaFilter');
+const exportButton = document.getElementById('exportCSV');
+
+// Fonction pour vérifier l'état
+function updateExportButtonVisibility() {
+  const isInputFilled = searchInput.value.trim() !== "";
+  const isTeamSelected = teamFilter.value.trim() !== "";
+  const isFincaSelected = fincaFilter.value.trim() !== "";
+
+  if (isInputFilled || isTeamSelected || isFincaSelected) {
+    exportButton.style.display = "inline-block"; // ou "block" selon ton style
+  } else {
+    exportButton.style.display = "none";
+  }
+}
+
+// Mettre à jour au changement
+searchInput.addEventListener('input', updateExportButtonVisibility);
+teamFilter.addEventListener('change', updateExportButtonVisibility);
+fincaFilter.addEventListener('change', updateExportButtonVisibility);
+
+// Appel initial (au cas où tout est vide au début)
+updateExportButtonVisibility();
 
 function parseDate(dateStr) {
   if (!dateStr) return new Date();
