@@ -133,6 +133,7 @@
   .search-wrapper {
     position: relative;
   }
+ 
   
   .search-icon {
     position: absolute;
@@ -209,6 +210,11 @@
     display: flex;
     gap: 0.75rem;
   }
+
+  .table-container{
+    background-color: #ffffff;
+    border-color: #096d56;
+  }
   
   .btn {
     padding: 0.5rem 1rem;
@@ -261,27 +267,29 @@
   }
   
   th {
-    background-color: #066656;
+    background-color: #727373;
     padding: 0.75rem 1rem;
     text-align: left;
     font-size: 0.75rem;
     text-transform: uppercase;
-    color: black;
+    color: rgb(252, 249, 249);
     font-weight: 600;
   }
   
   td {
+    background-color: #ffffff;
     padding: 1rem;
     border-bottom: 1px solid var(--border);
     color: var(--text);
+    
   }
   
   tr:hover {
-    background-color: var(--background);
+    background-color: whitesmoke;
   }
   
   tr.overtime {
-    background-color: #fee2e2;
+    background-color: #09c79b;
   }
   
   .dark tr.overtime {
