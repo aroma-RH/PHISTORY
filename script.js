@@ -450,5 +450,43 @@ function setError(errorMessage) {
   }
 }
 
+
+
+fincaFilter.addEventListener('change', function(event) {
+  const selectedFinca = fincaFilter.value;
+
+
+  if (selectedFinca === " ") return;
+
+  const password = prompt("Veuillez entrer le mot de passe pour accéder à cette Finca:");
+
+  const fincaPasswords = {
+    "FINCA 1": "jid2024",
+    "FINCA 2": "h123",
+    "FINCA 3": "a456",
+    "FINCA 4": "Ar789",
+    "FINCA 5": "Fs2024",
+    "FINCA 6": "Ta159",
+    "FINCA 8": "Ba12",
+    "FINCA 9": "664248965",
+    "FINCA 13": "Ee13",
+    "FINCA 19": "Tl90",
+    "FINCA 20": "F20",
+    "FINCA 21": "Se56",
+    "FINCA 22": "twt2024"
+  };
+  
+
+  // Vérifier
+  if (password === fincaPasswords[selectedFinca]) {
+    console.log("Mot de passe correct. Filtrage de : " + selectedFinca);
+    
+  } else {
+    alert("Mot de passe incorrect !");
+    fincaFilter.value = "";
+    updateExportButtonVisibility();
+  }
+});
+
 // Initialize the application
 init();
