@@ -322,28 +322,28 @@ function changePage(page) {
 
 // Export Functions
 function exportToCSV() {
-  const headers = ['ID', 'NOMBRE', 'EQUIPE', 'RHHH', 'DATE', 'FINCA', 'Face', 'S CONTRAT', 'CONTRAT'];
-  const csvContent = [
-    headers.join(','),
-    ...filteredData.map(entry => [
-      entry.id,
-      entry.employee,
-      entry.team || '',
-      entry.hours,
-      entry.date,
-      entry.finca || '',
-      entry.face || '',
-      entry.status || '',
-      entry.company || ''
-    ].join(','))
-  ].join('\n');
-  
-  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = `EXTRAIT-${formatDate(new Date())}.csv`;
-  link.click();
-}
+   const headers = ['ID', 'NOMBRE', 'EQUIPE', 'RHHH', 'DATE', 'FINCA', 'Face', 'S CONTRAT', 'CONTRAT'];
+   const csvContent = [
+     headers.join(','),
+     ...filteredData.map(entry => [
+       entry.id,
+       entry.employee,
+       entry.team || '',
+       entry.hours,
+       entry.date,
+       entry.finca || '',
+       entry.face || '',
+       entry.status || '',
+       entry.company || ''
+     ].join(','))
+   ].join('\n');
+   
+   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+   const link = document.createElement('a');
+   link.href = URL.createObjectURL(blob);
+   link.download = `EXTRAIT-${formatDate(new Date())}.csv`;
+   link.click();
+ }
 
 function openPrintView() {
   const printWindow = window.open('', '_blank');
