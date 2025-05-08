@@ -1,6 +1,6 @@
 // Constants
 const API_URL = 'https://script.google.com/macros/s/AKfycbw_q_-bDg0txxkaYimhzQlXdXVIW3Tea1bedWe0BQ1xoQxtmaMQp6jG4Usut-swWtpU_g/exec';
-const ROWS_PER_PAGE = 25;
+const ROWS_PER_PAGE = 30;
 
 // State
 let allData = [];
@@ -319,30 +319,45 @@ function changePage(page) {
   currentPage = page;
   updateTable();
 }
+function formatDateToDDMMYYYY(date) {
+  const d = new Date(date);
+  const day = String(d.getDate()).padStart(2, '0');
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const year = d.getFullYear();
+  return `${day}/${month}/${year}`;
+}
+function formatDate(date) {
+  return date.toISOString().split('T')[0]; // YYYY-MM-DD for filename
+}
 
 // Export Functions
 function exportToCSV() {
-   const headers = ['ID', 'NOMBRE', 'EQUIPE', 'RHHH', 'DATE', 'FINCA', 'Face', 'S CONTRAT', 'CONTRAT'];
-   const csvContent = [
-     headers.join(','),
-     ...filteredData.map(entry => [
-       entry.id,
-       entry.employee,
-       entry.team || '',
-       entry.hours,
-       entry.date,
-       entry.finca || '',
-       entry.face || '',
-       entry.status || '',
-       entry.company || ''
-     ].join(','))
-   ].join('\n');
-   
-   const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-   const link = document.createElement('a');
-   link.href = URL.createObjectURL(blob);
-   link.download = `EXTRAIT-${formatDate(new Date())}.csv`;
-   link.click();
+  
+    const headers = ['ID', 'NOMBRE', 'EQUIPE', 'RHHH', 'DATE', 'FINCA', 'Face', 'S CONTRAT', 'CONTRAT'];
+    const data = [
+      headers,
+      ...filteredData.map(entry => [
+        entry.id,
+        entry.employee,
+        entry.team || '',
+        entry.hours,
+        typeof entry.date === 'string' ? entry.date : formatDateToDDMMYYYY(entry.date),
+        entry.finca || '',
+        entry.face || '',
+        entry.status || '',
+        entry.company || ''
+      ])
+    ];
+  
+    // Create worksheet and workbook
+    const worksheet = XLSX.utils.aoa_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Feuille1");
+  
+    // Download Excel file
+    XLSX.writeFile(workbook, `EXTRAIT-${formatDate(new Date())}.xlsx`);
+  
+  
  }
 
 function openPrintView() {
